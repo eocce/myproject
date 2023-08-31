@@ -213,3 +213,11 @@ def get_browse_image(request, data_id):
         return FileResponse(open(data.browsejpgpath, 'rb'), content_type='image/jpeg')
     except RemoteSensingData.DoesNotExist:
         return HttpResponseNotFound("Image not found")
+
+def download_data(request, data_id):
+    # 获取文件路径
+    data = RemoteSensingData.objects.get(id=data_id)
+    print(data.zpath)
+    response = FileResponse(open(data.zpath, 'rb'))
+    response['Content-Disposition'] = f'attachment; filename="image_{data_id}.7z"'
+    return response
