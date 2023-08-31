@@ -1,7 +1,7 @@
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from myapp.views import RemoteSensingDataView, PublishDataView, UserCreate, UserLogin, \
-    check_username, custom_captcha_refresh, check_login_status, change_password, logout, get_data_directory
+    check_username, custom_captcha_refresh, check_login_status, change_password, logout, get_data_directory, get_browse_image
 from captcha.views import captcha_image
 
 router = DefaultRouter()
@@ -20,5 +20,6 @@ urlpatterns = [
     path('api/v1/change_password/', change_password, name='change_password'),
     path('api/v1/logout/', logout, name='logout'),
     path('api/v1/data_directory/', get_data_directory, name='data_directory'),
+    path('get_image/<int:data_id>/', get_browse_image, name='get_browse_image'),
 ]
 

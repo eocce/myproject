@@ -8,7 +8,7 @@ class RemoteSensingDataSerializer(serializers.ModelSerializer):
         model = RemoteSensingData
         fields = ['zname', 'zpath', 'MSname', 'MSpath', 'PAname',
                   'PApath', 'CloudPercent', 'GeodeticInfo',
-                  'browsejpgpath', 'ProductTime']
+                  'browsejpgpath', 'ProductTime', 'id']
 
 
 class FileSerializer(serializers.Serializer):

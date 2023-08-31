@@ -17,6 +17,9 @@ from django.urls import reverse
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import check_password, make_password
 from rest_framework.decorators import api_view, permission_classes
+from django.http import FileResponse, HttpResponseNotFound
+
+
 
 from .scan_and_extract_data import scan_and_extract_data
 
@@ -200,3 +203,13 @@ def get_data_directory(request):
     serializer = RemoteSensingDataSerializer(data_entries, many=True)
 
     return Response(serializer.data)
+
+@api_view(['GET'])
+def get_browse_image(request, data_id):
+    try:
+        # 从数据库中获取指定ID的数据对象
+        data = RemoteSensingData.objects.get(id=data_id)
+        # 返回图片文件
+        return FileResponse(open(data.browsejpgpath, 'rb'), content_type='image/jpeg')
+    except RemoteSensingData.DoesNotExist:
+        return HttpResponseNotFound("Image not found")
