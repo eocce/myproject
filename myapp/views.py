@@ -221,3 +221,9 @@ def download_data(request, data_id):
     response = FileResponse(open(data.zpath, 'rb'))
     response['Content-Disposition'] = f'attachment; filename="image_{data_id}.7z"'
     return response
+
+def data_query(request):
+    query = request.GET.get('query', '')
+    results = RemoteSensingData.objects.filter(name__icontains=query)
+    data = [{"id": item.id, "name": item.name, "lat": item.lat, "lng": item.lng} for item in results]
+    return JsonResponse(data, safe=False)

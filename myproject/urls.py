@@ -2,7 +2,7 @@ from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from myapp.views import (RemoteSensingDataView, PublishDataView, UserCreate, UserLogin, \
     check_username, custom_captcha_refresh, check_login_status,
-                         change_password, logout, get_data_directory, get_browse_image, download_data)
+                         change_password, logout, get_data_directory, get_browse_image, download_data, data_query)
 from captcha.views import captcha_image
 
 router = DefaultRouter()
@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/v1/data_directory/', get_data_directory, name='data_directory'),
     path('get_image/<int:data_id>/', get_browse_image, name='get_browse_image'),
     path('download_data/<int:data_id>/', download_data, name='download_data'),
+    path('data_query/', data_query, name='data_query'),
 ]
 
